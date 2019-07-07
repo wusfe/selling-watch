@@ -273,7 +273,7 @@
           });
         }else if(!this.searchData.size) {
           Toast({
-            message: '请填写商品尺寸',
+            message: '请填写商品尺码',
             position: 'middle',
             duration: 1000
           });
