@@ -295,24 +295,6 @@
             position: 'middle',
             duration: 1000
           });
-        }else if(!this.searchData.area) {
-          Toast({
-            message: '请填写地区',
-            position: 'middle',
-            duration: 1000
-          });
-        }else if(!this.searchData.area) {
-          Toast({
-            message: '请填写地区',
-            position: 'middle',
-            duration: 1000
-          });
-        }else if(!this.searchData.area) {
-          Toast({
-            message: '请填写地区',
-            position: 'middle',
-            duration: 1000
-          });
         }else if(!this.searchData.addr) {
           Toast({
             message: '请填写详细地址',
