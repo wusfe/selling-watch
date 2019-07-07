@@ -31,7 +31,7 @@
                 <div class="price-desc">√原价：<span>{{v.original_price}}</span></div>
                 <div class="price-desc">√折扣：{{v.discount}}</div>
 
-                <div class="price-desc">√节省：133010</div>
+                <div class="price-desc">√节省：{{v.original_price - v.price}}</div>
               </div>
               <div class="today-price-container clear">
                 <div>今日特价</div>
