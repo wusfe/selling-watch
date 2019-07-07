@@ -79,6 +79,21 @@
         <div class="tip">请开箱验货后再支付款项</div>
       </div>
     </div>
+    <div class="input-container" v-if="type === 'selectInput'">
+      <label class="row-label">
+        <span class="require-icon">* </span>&nbsp;
+        <span>{{label}}</span>
+      </label>
+      <div class="row-content clear">
+        <div style="width: 100%;">
+          <select v-model="cnt" @change="changeCnt" class="select-a">
+            <option value="">{{noValue}}</option>
+            <option :value="v" v-for=" v in options">{{v}}</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
   </div>
 
 </template>
@@ -100,6 +115,11 @@
         type: [String, Number],
         default: 1
       },
+      noValue: [String, Number],
+      options: {
+        type: Array,
+        default: () => []
+      }
     },
     data() {
       return {
@@ -113,7 +133,7 @@
         city: [],
         area: [],
         cnt: '',
-        text: ''
+        text: '',
       }
     },
     methods: {

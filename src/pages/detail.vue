@@ -46,6 +46,8 @@
       </m-input>
       <m-input label="您的姓名" :cnt.sync="searchData.receiver"></m-input>
       <m-input label="手机号码" :cnt.sync="searchData.tel"></m-input>
+      <m-input label="商品颜色" :cnt.sync="searchData.color" type="selectInput" noValue="选择颜色" :options="goods.color"></m-input>
+      <m-input label="商品尺寸" :cnt.sync="searchData.size" type="selectInput" no-value="选择尺寸" :options="goods.size"></m-input>
       <m-input label="选择地区" type="select" @changeArea="changeArea"></m-input>
       <m-input label="详细地址" type="textarea" required areatextRow="2" :textarea.sync="searchData.addr"></m-input>
       <m-input label="留言备注" type="textarea" areatextRow="2" :textarea.sync="searchData.remark"></m-input>
@@ -127,7 +129,9 @@
           addr: '',
           tel: '',
           buy_num: 1,
-          remark: ''
+          remark: '',
+          color: '',
+          size: ''
         }
       }
     },
@@ -258,6 +262,18 @@
         }else if(!this.searchData.tel) {
           Toast({
             message: '请填写手机号码',
+            position: 'middle',
+            duration: 1000
+          });
+        }else if(!this.searchData.color) {
+          Toast({
+            message: '请填写商品颜色',
+            position: 'middle',
+            duration: 1000
+          });
+        }else if(!this.searchData.size) {
+          Toast({
+            message: '请填写商品尺寸',
             position: 'middle',
             duration: 1000
           });

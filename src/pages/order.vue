@@ -31,6 +31,14 @@
           <span>{{orderDetail.tel}}</span>
         </li>
         <li>
+          <label>商品颜色：</label>
+          <span>{{orderDetail.color}}</span>
+        </li>
+        <li>
+          <label>商品尺寸：</label>
+          <span>{{orderDetail.size}}</span>
+        </li>
+        <li>
           <label>选择地区：</label>
           <span>{{orderDetail.province}} {{orderDetail.city}} {{orderDetail.area}}</span>
         </li>
