@@ -30,11 +30,11 @@
           <label>手机号码：</label>
           <span>{{orderDetail.tel}}</span>
         </li>
-        <li>
+        <li v-if="orderDetail.color">
           <label>商品颜色：</label>
           <span>{{orderDetail.color}}</span>
         </li>
-        <li>
+        <li v-if="orderDetail.size">
           <label>商品尺码：</label>
           <span>{{orderDetail.size}}</span>
         </li>

@@ -265,18 +265,63 @@
             position: 'middle',
             duration: 1000
           });
-        }else if(!this.searchData.color) {
-          Toast({
-            message: '请填写商品颜色',
-            position: 'middle',
-            duration: 1000
-          });
-        }else if(!this.searchData.size) {
-          Toast({
-            message: '请填写商品尺码',
-            position: 'middle',
-            duration: 1000
-          });
+        }else if(this.goods.color && this.goods.color.length) {
+          if(!this.searchData.color) {
+            Toast({
+              message: '请填写商品颜色',
+              position: 'middle',
+              duration: 1000
+            });
+          }else if(!this.searchData.size) {
+            Toast({
+              message: '请填写商品尺码',
+              position: 'middle',
+              duration: 1000
+            })
+          }else if(!this.searchData.province) {
+            Toast({
+              message: '请填写省份',
+              position: 'middle',
+              duration: 1000
+            });
+          }else if(!this.searchData.city) {
+            Toast({
+              message: '请填写城市',
+              position: 'middle',
+              duration: 1000
+            });
+          }else if(!this.searchData.area) {
+            Toast({
+              message: '请填写地区',
+              position: 'middle',
+              duration: 1000
+            });
+          }else if(!this.searchData.addr) {
+            Toast({
+              message: '请填写详细地址',
+              position: 'middle',
+              duration: 1000
+            });
+          }else {
+            Indicator.open()
+            order(this.searchData).then(res => {
+              Indicator.close()
+              Toast({
+                message: '下单成功',
+                position: 'middle',
+                duration: 1000
+              });
+              setTimeout(() => {
+                sessionStorage.setItem('order', JSON.stringify(Object.assign({}, res.data, {id: this.searchData.goods_id})))
+                this.$router.push({
+                  path:'/order',
+                  query: {
+                    source: this.$route.query.source
+                  }
+                })
+              },1000)
+            })
+          }
         }else if(!this.searchData.province) {
           Toast({
             message: '请填写省份',
