@@ -46,8 +46,8 @@
       </m-input>
       <m-input label="您的姓名" :cnt.sync="searchData.receiver"></m-input>
       <m-input label="手机号码" :cnt.sync="searchData.tel"></m-input>
-      <m-input label="商品颜色" :cnt.sync="searchData.color" type="selectInput" noValue="选择颜色" :options="goods.color"></m-input>
-      <m-input label="商品尺寸" :cnt.sync="searchData.size" type="selectInput" no-value="选择尺寸" :options="goods.size"></m-input>
+      <m-input label="商品颜色" :cnt.sync="searchData.color" type="selectInput" noValue="选择颜色" :options="goods.color" v-if="goods.color && goods.color.length"></m-input>
+      <m-input label="商品尺码" :cnt.sync="searchData.size" type="selectInput" no-value="选择尺码" :options="goods.size" v-if="goods.size && goods.size.length">></m-input>
       <m-input label="选择地区" type="select" @changeArea="changeArea"></m-input>
       <m-input label="详细地址" type="textarea" required areatextRow="2" :textarea.sync="searchData.addr"></m-input>
       <m-input label="留言备注" type="textarea" areatextRow="2" :textarea.sync="searchData.remark"></m-input>

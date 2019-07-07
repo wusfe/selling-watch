@@ -35,7 +35,7 @@
           <span>{{orderDetail.color}}</span>
         </li>
         <li>
-          <label>商品尺寸：</label>
+          <label>商品尺码：</label>
           <span>{{orderDetail.size}}</span>
         </li>
         <li>
