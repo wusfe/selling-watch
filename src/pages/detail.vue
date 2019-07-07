@@ -406,7 +406,9 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;/*伸缩盒子的子元素排列：从上到下*/
+    /* autoprefixer: on */
     font-weight: 900;
   }
 
