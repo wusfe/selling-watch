@@ -259,52 +259,62 @@
         this.searchData.area = n[2]
       },
       submit() {
-
+        const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
         if (!this.searchData.receiver) {
-          Toast({
+         return Toast({
             message: '请填写你的姓名',
             position: 'middle',
             duration: 1000
           });
-        } else if (!this.searchData.tel) {
-          Toast({
+        }
+        if (!this.searchData.tel) {
+         return Toast({
             message: '请填写手机号码',
             position: 'middle',
             duration: 1000
           });
-        } else if (this.goods.color && this.goods.color.length) {
+        }else {
+          if(!phone_reg.test(this.searchData.tel)) {
+            return Toast({
+              message: '请填写正确手机号码',
+              position: 'middle',
+              duration: 1000
+            });
+          }
+        }
+        if (this.goods.color && this.goods.color.length) {
           if (!this.searchData.color) {
-            Toast({
+           return Toast({
               message: '请填写商品颜色',
               position: 'middle',
               duration: 1000
             });
           } else if (!this.searchData.size) {
-            Toast({
+           return Toast({
               message: '请填写商品尺码',
               position: 'middle',
               duration: 1000
             })
           } else if (!this.searchData.province) {
-            Toast({
+           return Toast({
               message: '请填写省份',
               position: 'middle',
               duration: 1000
             });
           } else if (!this.searchData.city) {
-            Toast({
+           return Toast({
               message: '请填写城市',
               position: 'middle',
               duration: 1000
             });
           } else if (!this.searchData.area) {
-            Toast({
+           return Toast({
               message: '请填写地区',
               position: 'middle',
               duration: 1000
             });
           } else if (!this.searchData.addr) {
-            Toast({
+           return Toast({
               message: '请填写详细地址',
               position: 'middle',
               duration: 1000
@@ -330,25 +340,25 @@
             })
           }
         } else if (!this.searchData.province) {
-          Toast({
+         return Toast({
             message: '请填写省份',
             position: 'middle',
             duration: 1000
           });
         } else if (!this.searchData.city) {
-          Toast({
+         return Toast({
             message: '请填写城市',
             position: 'middle',
             duration: 1000
           });
         } else if (!this.searchData.area) {
-          Toast({
+         return Toast({
             message: '请填写地区',
             position: 'middle',
             duration: 1000
           });
         } else if (!this.searchData.addr) {
-          Toast({
+         return Toast({
             message: '请填写详细地址',
             position: 'middle',
             duration: 1000
