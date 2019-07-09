@@ -3,7 +3,8 @@ import tools from './utils/tools'
 import QS from 'qs'
 import { Toast } from 'mint-ui';
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://ancl.vip'
+// axios.defaults.baseURL = 'http://ancl.vip'
+axios.defaults.baseURL = 'https://api.letgobuy.com'
 
 export function createServer () {
   axios.interceptors.request.use(config => {
