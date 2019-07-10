@@ -21,10 +21,14 @@
       <img src="../assets/images/activity.gif" alt="">
     </div>
     <div class="activity-list-container">
-      <router-link :to="{path:`/detail/${v.id}`, query:{source:$route.query.source}}" class="c" v-for="(v, i) in best" :key="i">
+      <router-link :to="{path:`/detail/${v.id}`, query:{source:$route.query.source}}" class="c" v-for="(v, i) in best"
+                   :key="i">
         <div class="activity-list-item">
           <div class="list">
-            <img :src="v.cover" alt="">
+            <div class="cover">
+              <img v-lazy="v.cover" alt="">
+            </div>
+
             <div class="price">
               <div class="title">{{v.name}}</div>
               <div class="price-desc-container">
@@ -49,10 +53,13 @@
           <span>{{m.name}}</span>
           <div></div>
         </div>
-        <router-link :to="{path:`/detail/${v.id}`, query:{source:$route.query.source}}" v-for="(v, l) in m.list" class="c" :key="l">
+        <router-link :to="{path:`/detail/${v.id}`, query:{source:$route.query.source}}" v-for="(v, l) in m.list"
+                     class="c" :key="l">
           <div class="activity-list-item">
             <div class="list">
-              <img v-lazy="v.cover" alt="">
+              <div class="cover">
+                <img v-lazy="v.cover" alt="">
+              </div>
               <div class="price">
                 <div class="title">{{v.name}}</div>
                 <div class="price-desc-container">
@@ -113,7 +120,7 @@
     },
     //todo 节省
     mounted() {
-      document.title =  '欧表国际【1折】限时秒杀'
+      document.title = '欧表国际【1折】限时秒杀'
       this.$nextTick(() => {
         this.backTop()
       })
@@ -231,12 +238,22 @@
         box-sizing: border-box;
         display: flex;
         align-items: center;
+        overflow: hidden;
+        .cover {
+          width: 280px;
+          height: 280px;
+          margin-left: 20px;
+          margin-right: 10px;
+          /*margin-right: 50px;*/
+          /*margin-left: 60px;*/
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-        img {
-          width: 196px;
-          height: 304px;
-          margin-right: 50px;
-          margin-left: 60px;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+          }
         }
 
         .price {
@@ -256,7 +273,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             /*! autoprefixer: off */
-            -webkit-box-orient: vertical;/*伸缩盒子的子元素排列：从上到下*/
+            -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
             /* autoprefixer: on */
           }
 
