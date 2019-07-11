@@ -40,7 +40,10 @@
           <img v-lazy="v.val" alt="">
         </div>
       </template>
-      <m-input label="订购数量" type="number" @changeOrderNum="changeOrderNum" id="order"></m-input>
+      <div class="line" id="order">
+        <div class="line-desc">立即下单</div>
+      </div>
+      <m-input label="订购数量" type="number" @changeOrderNum="changeOrderNum"></m-input>
       <m-input label="订单总价" type="">
         <span slot="content"><span class="order-c">￥</span><strong class="order-p">{{price}}</strong></span>
       </m-input>
