@@ -21,7 +21,7 @@
     </div>
     <div class="input-container" v-if="type === 'number'">
       <label class="row-label">
-        <span class="require-icon">* </span>&nbsp;
+        <!-- <span class="require-icon">* </span>&nbsp; -->
         <span>{{label}}</span>
       </label>
       <div class="row-content">

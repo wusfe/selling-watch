@@ -74,8 +74,8 @@
 
     <div class="el_session el_sessionOrder">
       <div class="el_left">
-        <span class="el_require">*</span>
         <span class="el_title">您的姓名</span>
+        <span class="el_require">*</span>
       </div>
       <div class="el_right">
         <input class="el-input__inner" v-model="searchData.receiver" placeholder="请输入您的姓名"/>
@@ -83,8 +83,8 @@
     </div>
     <div class="el_session el_sessionOrder">
       <div class="el_left">
-        <span class="el_require">*</span>
         <span class="el_title">手机号码</span>
+        <span class="el_require">*</span>
       </div>
       <div class="el_right">
         <input class="el-input__inner"  v-model="searchData.tel" placeholder="请输入您的手机号码"/>
@@ -97,8 +97,8 @@
     </div>
     <div class="el_session el_sessionOrder">
       <div class="el_left">
-        <span class="el_require">*</span>
         <span class="el_title">选择地区</span>
+        <span class="el_require">*</span>
       </div>
       <div class="el_right">
         <m-input type="select" @changeArea="changeArea"></m-input>
@@ -106,8 +106,8 @@
     </div>
     <div class="el_session el_sessionOrder">
       <div class="el_left">
-        <span class="el_require">*</span>
         <span class="el_title">详细地址</span>
+        <span class="el_require">*</span>
       </div>
       <div class="el_right">
         <input class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
@@ -530,6 +530,10 @@
 <style lang="less" scoped>
   @import "../style/commom.less";
   @import "../style/commom.css";
+
+  .el-textarea__inner{
+    font-size: 24px;
+  }
 
    .fadein {
     position: fixed;
