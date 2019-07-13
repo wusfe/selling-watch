@@ -8,7 +8,7 @@
       <mt-swipe-item class="el_swipe_item">2</mt-swipe-item>
       <mt-swipe-item class="el_swipe_item">3</mt-swipe-item> -->
     </mt-swipe>
-    <mt-swipe :auto="0" class="goods_swipe">
+    <mt-swipe :auto="0" class="goods_swipe" style="background:#fff">
       <mt-swipe-item v-bind:key="index" v-for="(item, index) in best">
         <div class="el_swipe_slide">
           <div class="el_left">
@@ -201,13 +201,14 @@
       color: @activeColor;
     }
     .el_swipe_slide {
+      padding: 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       .el_left {
         img {
-          width: 171px;
-          height: 88px;
+          width: 164px;
+          height: 84px;
         }
       }
       .el_right {
@@ -285,6 +286,7 @@
       .el_blocks {
         width: 383px;
         height: 383px;
+        background-color: #fff;
         border: 1px solid @lineColor;
         font-size: 27px;
         line-height: 41px;
