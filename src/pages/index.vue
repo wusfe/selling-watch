@@ -10,16 +10,18 @@
     </mt-swipe>
     <mt-swipe :auto="0" class="goods_swipe" style="background:#fff">
       <mt-swipe-item v-bind:key="index" v-for="(item, index) in best">
-        <div class="el_swipe_slide">
-          <div class="el_left">
-            <img v-bind:src="item.cover"/>
+        <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
+          <div class="el_swipe_slide">
+            <div class="el_left">
+              <img v-bind:src="item.cover"/>
+            </div>
+            <div class="el_right">
+              <div class="el_name">{{ item.name }}</div>
+              <span class="el_price">¥ {{ item.price }}    </span>
+              <span class="el_price_o">¥ {{ item.original_price}}</span>
+            </div>
           </div>
-          <div class="el_right">
-            <div class="el_name">{{ item.name }}</div>
-            <span class="el_price">¥ {{ item.price }}    </span>
-            <span class="el_price_o">¥ {{ item.original_price}}</span>
-          </div>
-        </div>
+        </router-link>
       </mt-swipe-item>
     </mt-swipe>
 
