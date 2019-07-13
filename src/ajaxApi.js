@@ -3,9 +3,10 @@ import { getPar } from  './utils/tools'
 let http = createServer()
 
 export const list = (data = {}) => http.get('/api/goods/list', data)
-export const detail = (data = {}) => http.get('/api/goods/detail', data)
+export const details = (id) => http.get(`/api/goods/detail?goods_id=${id}`)
+export const orderRedis = (tel) => http.get(`/api/order/redis?tel=${tel}`)
 export const order = (data = {}) => {
-  return http.post('/api/order/new', Object.assign({}, data, {
+  return http.post('/api/order/news', Object.assign({}, data, {
     source: getPar('source')
   }))
 }

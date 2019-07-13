@@ -1,24 +1,24 @@
 <template>
   <div class="details">
     <div class="el_session el_sessionHeader">
-      <img src="../assets/img/ic_shoes_details.png"/>
-      <img class="ic_order" src="../assets/img/ic_order.png">
+      <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
+      <img class="ic_order" src="../assets/img/ic_order.png" v-on:click="orderClick">
     </div>
     <div class="el_session el_sessionTitle">
       <div>
         <div class="el_price">
-          <span>￥689.00</span>
-          <span class="el_price_o">￥1560</span>
+          <span>￥{{ goods.price }}</span>
+          <span class="el_price_o">￥ {{goods.original_price}}</span>
         </div>
-        <div class="el_sold">已售：762</div>
+        <div class="el_sold">已售：{{ goods.sold_num }}</div>
       </div>
       <div>
         <div class="el_timeTitle">活动倒计时</div>
-        <div class="el_time">23:51:26</div>
+        <div class="el_time">{{ time }}</div>
       </div>
     </div>
     <div class="el_session el_sessionName">
-      阿迪达斯Adidas yeezy boost 350v2侃爷椰子白满天 星男女跑鞋
+      {{ goods.name}}
     </div>
     <div class="el_session el_sessionTip">
       <img src="../assets/img/ic_tip.png"/>
@@ -29,7 +29,7 @@
     <div class="el_session">
       <img src="../assets/img/ic_describe.png"/>
     </div>
-    <div class="el_session">
+    <div class="el_session" id="goto-order">
       <div class="el_session_header">
         <div class="el_session_left"></div>
         <div class="el_session_center">立即下单</div>
@@ -37,37 +37,38 @@
       </div>
       <div class="el_session_content">
         <div class="el_content_side">
-          <img src="../assets/img/ic_nike.png"/>
+        <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
         </div>
         <div class="el_content_side el_content_sideR">
-          <div class="el_price">￥963.00</div>
+          <div class="el_price">￥{{ goods.price }}</div>
           <div class="el_priceTxt">选择颜色分类；尺码</div>
         </div>
       </div>
       <div class="el_session_block">
         <div class="el_block_title">颜色分类</div>
         <ul>
-          <li class="el_li" v-for="i in 3">
-            <img src="../assets/img/ic_nike.png"/>
-            <div class="el_option">粉色</div>
+          <li v-bind:class="{ 'el_li': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
+            <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
+            <div class="el_option">{{ item }}</div>
           </li>
         </ul>
       </div>
       <div class="el_session_block">
         <div class="el_block_title">尺码</div>
         <ul>
-          <li class="el_li el_liD" v-for="i in 12">
-            <div class="el_optionD">35.5</div>
+          <li v-bind:class="{ 'el_li el_liD': true, active: (item == searchData.size) }" v-bind:key="item" v-for="item in goods.size" v-on:click="changeSize(item)">
+            <div class="el_optionD">{{ item }}</div>
           </li>
         </ul>
       </div>
       <div class="el_session_side">
         <div class="el_block_left">购买数量</div>
-        <div class="el_block_right">
+        <m-input  type="number" @changeOrderNum="changeOrderNum"></m-input>
+        <!--<div class="el_block_right">
           <img class="el_num" src="../assets/img/ic_reduce.png"/>
-          <div class="el_numC">1222</div>
+          <div class="el_numC">{{ searchData.buy_num }}</div>
           <img class="el_num" src="../assets/img/ic_plus.png"/>
-        </div>
+        </div>-->
       </div>
     </div>
 
@@ -77,7 +78,7 @@
         <span class="el_title">您的姓名</span>
       </div>
       <div class="el_right">
-        <input class="el-input__inner" placeholder="请输入您的姓名"/>
+        <input class="el-input__inner" v-model="searchData.receiver" placeholder="请输入您的姓名"/>
       </div>
     </div>
     <div class="el_session el_sessionOrder">
@@ -86,10 +87,11 @@
         <span class="el_title">手机号码</span>
       </div>
       <div class="el_right">
-        <input class="el-input__inner" placeholder="请输入您的手机号码"/>
+        <input class="el-input__inner"  v-model="searchData.tel" placeholder="请输入您的手机号码"/>
         <div class="el_side">
-          <input class="el-input__inner" placeholder="请输入验证码"/>
-          <div class="el_button">获取验证码</div>
+          <input class="el-input__inner" v-model="searchData.v_code" placeholder="请输入验证码"/>
+          <div v-if="count_down == 60" class="el_button" v-on:click="sendCode">获取验证码</div>
+          <div v-if="count_down != 60" class="el_button" > {{count_down }} s</div>
         </div>
       </div>
     </div>
@@ -99,7 +101,7 @@
         <span class="el_title">选择地区</span>
       </div>
       <div class="el_right">
-        <input class="el-input__inner" placeholder="请输入您的姓名"/>
+        <m-input type="select" @changeArea="changeArea"></m-input>
       </div>
     </div>
     <div class="el_session el_sessionOrder">
@@ -108,7 +110,7 @@
         <span class="el_title">详细地址</span>
       </div>
       <div class="el_right">
-        <textarea class="el-textarea__inner" placeholder="请输入您的详细地址"/>
+        <textarea class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
       </div>
     </div>
     <div class="el_session el_sessionOrder">
@@ -116,7 +118,7 @@
         <span class="el_title">留言备注</span>
       </div>
       <div class="el_right">
-        <textarea class="el-textarea__inner" placeholder="请输入您的详细地址"/>
+        <textarea class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的详细地址"/>
       </div>
     </div>
     <div class="el_session el_sessionOrder">
@@ -129,39 +131,310 @@
       </div>
     </div>
     <div class="el_session el_sessionPay">
-      <div class="el-payButton">立即下单</div>
+      <div class="el-payButton" v-on:click="submit">立即下单</div>
     </div>
 
     <div class="el_footer">
-        <div class="el_home">
+      <router-link :to="{path:`/`, query:{source:$route.query.source}}">
+        <div class="el_home" v-on:click="homeClick">
           <img src="../assets/img/ic_home.png"/>
         </div>
-      <div class="el_call">电话咨询</div>
-      <div class="el_pay_button">立即下单</div>
+      </router-link>
+      <a class="el_call" href="tel:18948788829" v-on:click="telClick">电话咨询</a>
+      <a href="#goto-order" class="el_pay_button" v-on:click="rightOrder">立即下单</a>
     </div>
 
   </div>
 </template>
 
 <script>
+  import mInput from "@/components/m-input"
+  import {details, orderRedis, order, write} from '../ajaxApi'
+  import {dealTime} from '../utils/tools'
+  import {Toast, Indicator} from 'mint-ui'
+
+  const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+
   export default {
     data() {
-      return {}
+      return {
+        goods: {},
+        newest: [],
+        show_orders: [],
+        time: '00:00:00',
+        count_down_timer: null,
+        count_down: 60,
+        searchData: {
+          goods_id: '',
+          source: '',
+          receiver: '',
+          province: '',
+          city: '',
+          area: '',
+          addr: '',
+          tel: '',
+          buy_num: 1,
+          remark: '',
+          color: '',
+          size: '',
+          v_code: ''
+        }
+      }
     },
-    components: {},
+    components: {
+      mInput
+    },
     computed: {},
     watch: {},
     created() {
     },
     mounted() {
+      const goods_id = this.$route.params.id
+      this.searchData.source = this.$route.query.source
+      this.searchData.goods_id = goods_id
+
+      if(goods_id){
+        details(goods_id).then(res => {
+          if(res.respond == 1){
+            this.goods = res.data.goods
+            this.newest = res.data.newest
+            this.show_orders = res.data.show_orders
+
+            console.log('goods', this.goods)
+
+            let t = res.data.goods.remaining_sec
+            document.title = res.data.goods.name
+            this.timer = setInterval(() => {
+              if (t === 0) {
+                clearInterval(s)
+                this.time = '00:00:00'
+              } else {
+                t -= 1
+                this.time = dealTime(t)
+              }
+            }, 1000)
+          }
+
+        })
+      }
+      write({id: 10002, goods_id})
     },
-    methods: {}
+    methods: {
+      changeColor(color){
+        this.searchData.color = (color == this.searchData.color) ? '' : color
+      },
+      changeSize(size){
+        this.searchData.size = (size == this.searchData.size) ? '' : size
+      },
+      computeNum(){
+        
+      },
+      changeOrderNum(n) {
+        this.price = (this.unitPrice * n).toFixed(2)
+        //todo 购买数量
+        this.searchData.buy_num = n
+      },
+      sendCode(){
+
+        if(this.count_down_timer) return;
+        
+        if(this.searchData.tel){
+          if(!phone_reg.test(this.searchData.tel)){
+            Toast({
+              message: '请输入正确的手机号',
+              position: 'middle',
+              duration: 1000
+            })
+            return
+          }
+          orderRedis(this.searchData.tel).then(res => {
+            if(res.respond == 1){
+              this.countDown()
+              console.log(res)
+            }
+          })
+        }
+      },
+      countDown(){
+        this.count_down_timer = setInterval(() => {
+          if(this.count_down < 1){
+            this.count_down = 60;
+            clearInterval(this.count_down_timer)
+            this.count_down_timer = null
+          }else{
+            --this.count_down
+          }
+        }, 1000)
+      },
+      changeArea(n) {
+        this.searchData.province = n[0]
+        this.searchData.city = n[1]
+        this.searchData.area = n[2]
+      },
+      submit() {
+        const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+
+        write({id: 10007, goods_id: this.searchData.goods_id, params: this.searchData})
+        if (!this.searchData.receiver) {
+         return Toast({
+            message: '请填写你的姓名',
+            position: 'middle',
+            duration: 1000
+          });
+        }
+        if (!this.searchData.tel) {
+         return Toast({
+            message: '请填写手机号码',
+            position: 'middle',
+            duration: 1000
+          });
+        }else {
+          if(!phone_reg.test(this.searchData.tel)) {
+            return Toast({
+              message: '请填写正确手机号码',
+              position: 'middle',
+              duration: 1000
+            });
+          }
+        }
+        if (this.goods.color && this.goods.color.length) {
+          if (!this.searchData.color) {
+           return Toast({
+              message: '请填写商品颜色',
+              position: 'middle',
+              duration: 1000
+            });
+          } else if (!this.searchData.size) {
+           return Toast({
+              message: '请填写商品尺码',
+              position: 'middle',
+              duration: 1000
+            })
+          } else if (!this.searchData.province) {
+           return Toast({
+              message: '请填写省份',
+              position: 'middle',
+              duration: 1000
+            });
+          } else if (!this.searchData.city) {
+           return Toast({
+              message: '请填写城市',
+              position: 'middle',
+              duration: 1000
+            });
+          } else if (!this.searchData.area) {
+           return Toast({
+              message: '请填写地区',
+              position: 'middle',
+              duration: 1000
+            });
+          } else if (!this.searchData.addr) {
+           return Toast({
+              message: '请填写详细地址',
+              position: 'middle',
+              duration: 1000
+            });
+          } else {
+            Indicator.open()
+            order(this.searchData).then(res => {
+              Indicator.close()
+              Toast({
+                message: '下单成功',
+                position: 'middle',
+                duration: 1000
+              });
+              setTimeout(() => {
+                sessionStorage.setItem('order', JSON.stringify(Object.assign({}, res.data, {id: this.searchData.goods_id})))
+                this.$router.push({
+                  path: '/order',
+                  query: {
+                    source: this.$route.query.source
+                  }
+                })
+              }, 1000)
+            }).catch(error => {
+              Indicator.close()
+              if(error.data && error.data.message && error.data.errorCode == 'won05'){
+                Toast({
+                  message: '验证码错误！',
+                  position: 'middle',
+                  duration: 1000
+                });
+              }
+            })
+          }
+        } else if (!this.searchData.province) {
+         return Toast({
+            message: '请填写省份',
+            position: 'middle',
+            duration: 1000
+          });
+        } else if (!this.searchData.city) {
+         return Toast({
+            message: '请填写城市',
+            position: 'middle',
+            duration: 1000
+          });
+        } else if (!this.searchData.area) {
+         return Toast({
+            message: '请填写地区',
+            position: 'middle',
+            duration: 1000
+          });
+        } else if (!this.searchData.addr) {
+         return Toast({
+            message: '请填写详细地址',
+            position: 'middle',
+            duration: 1000
+          });
+        } else {
+          Indicator.open()
+          order(this.searchData).then(res => {
+            Indicator.close()
+            Toast({
+              message: '下单成功',
+              position: 'middle',
+              duration: 1000
+            });
+            setTimeout(() => {
+              sessionStorage.setItem('order', JSON.stringify(Object.assign({}, res.data, {id: this.searchData.goods_id})))
+              this.$router.push({
+                path: '/order',
+                query: {
+                  source: this.$route.query.source
+                }
+              })
+            }, 1000)
+          })
+        }
+      },
+      rightOrder() {
+        write({id: 10003, goods_id: this.searchData.goods_id })
+        return false
+      },
+      telClick(){
+        write({id: 10004})
+        return false
+      },
+      homeClick(){
+        write({id: 10005})
+        return false
+      },
+      orderClick(){
+        write({id: 10006})
+        return false
+      }
+    }
   }
 </script>
 
 <style lang="less" scoped>
   @import "../style/commom.less";
   @import "../style/commom.css";
+
+  .active{
+    border: 1px solid #F37435 !important;
+  }
 
   .details {
     background-color: @bgColor;

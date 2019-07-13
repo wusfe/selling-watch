@@ -57,7 +57,7 @@
       </ul>
     </div>
     <div class="back">
-      <router-link :to="{path: `/detail/${orderDetail.id}`, query: {source:$route.query.source}}" tag="a">返回上页</router-link>
+      <router-link :to="{path: `/details/${orderDetail.id}`, query: {source:$route.query.source}}" tag="a">返回上页</router-link>
     </div>
   </div>
 </template>

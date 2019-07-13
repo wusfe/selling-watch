@@ -3,9 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueRouter from 'vue-router'
 import "amfe-flexible/index.js";
 import 'mint-ui/lib/style.css'
 import { Swipe, SwipeItem, Lazyload } from 'mint-ui';
+Vue.use(VueRouter)
 Vue.use(Lazyload);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);

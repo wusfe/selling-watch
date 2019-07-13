@@ -6,52 +6,59 @@
       <mt-swipe-item class="el_swipe_item">3</mt-swipe-item>
     </mt-swipe>
     <mt-swipe :auto="0" class="goods_swipe">
-      <mt-swipe-item v-for="i in 4">
+      <mt-swipe-item v-bind:key="index" v-for="(item, index) in best">
         <div class="el_swipe_slide">
           <div class="el_left">
-            <img src="../assets/img/ic_shoes.png"/>
+            <img v-bind:src="item.cover"/>
           </div>
           <div class="el_right">
-            <div class="el_name">耐克Nike 伦敦三代网面透气轻便休 闲男女运动鞋</div>
-            <span class="el_price">¥ 698.00    </span>
-            <span class="el_price_o">¥12059</span>
+            <div class="el_name">{{ item.name }}</div>
+            <span class="el_price">¥ {{ item.price }}    </span>
+            <span class="el_price_o">¥ {{ item.original_price}}</span>
           </div>
         </div>
       </mt-swipe-item>
     </mt-swipe>
-    <div class="el_session">
+
+    <div class="el_session" v-bind:key="idx" v-for="(brand, idx) in brands">
       <div class="el_session_header">
         <div class="el_session_left"></div>
-        <div class="el_session_center">NIKE</div>
+        <div class="el_session_center">{{brand.name}}</div>
         <div class="el_session_right"></div>
       </div>
-      <div class="el_session_content" v-for="i in 2">
+      <div class="el_session_content" v-bind:key="item.id" v-for="item in brand.list">
         <div class="el_block">
-          <img src="../assets/img/ic_nike.png"/>
+          <img :src="item.cover"/>
         </div>
         <div class="el_blocks">
           <div class="el_bocks_in">
             <div class="el_blocks_name">
-              耐克Nike 伦敦三代 网面透气轻便休闲 男女运动鞋
+              {{ item.name }}
             </div>
             <div class="el_price">
-              <span class="el_price_n">¥ 698.00  </span>
-              <span class="el_price_o">¥12059</span>
+              <span class="el_price_n">¥ {{ item.price }}  </span>
+              <span class="el_price_o">¥ {{ item.original_price }}</span>
             </div>
-            <div class="el_button"><img src="../assets/img/ic_more.png"/></div>
+            <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
+              <a :href="'/details/' + item.id">
+                <div class="el_button">
+                  <img src="../assets/img/ic_more.png"/>
+                </div>
+              </a>
+            </router-link>
           </div>
         </div>
       </div>
     </div>
 
 
-    <div class="el_session">
+    <!--<div class="el_session">
       <div class="el_session_header">
         <div class="el_session_left"></div>
         <div class="el_session_center">Adidas</div>
         <div class="el_session_right"></div>
       </div>
-      <div class="el_session_content" v-for="i in 2">
+      <div class="el_session_content" v-for="i in [1,2]">
         <div class="el_blockl">
           <div class="el_bocks_ins">
             <div class="el_blocks_name">
@@ -70,7 +77,7 @@
           <img src="../assets/img/ic_nike.png"/>
         </div>
       </div>
-    </div>
+    </div>-->
     <div class="el_session">
       <img src="../assets/img/ic_instructions.png"/>
     </div>
@@ -98,9 +105,13 @@
 </template>
 
 <script>
+  import {list, write} from '../ajaxApi'
   export default {
     data() {
-      return {}
+      return {
+        best : [],
+        brands: []
+      }
     },
     components: {},
     computed: {},
@@ -108,6 +119,15 @@
     created() {
     },
     mounted() {
+      list().then(res => {
+        if(res.respond == 1){
+          this.best = res.data.best
+          this.brands = res.data.brands
+          console.log('brands', this.brands)
+        }
+      })
+
+      write({id: 10001})
     },
     methods: {}
   }

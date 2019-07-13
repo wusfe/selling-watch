@@ -15,25 +15,25 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'index',
-    //   component: index
-    // },
     {
       path: '/',
-      name: 'details',
-      component: details
+      name: 'index',
+      component: index
     },
+    // {
+    //   path: '/',
+    //   name: 'details',
+    //   component: details
+    // },
     // {
     //   path: '/',
     //   name: 'list',
     //   component: list
     // },
     {
-      path: '/detail/:id',
-      name: 'detail',
-      component: detail
+      path: '/details/:id',
+      name: 'details',
+      component: details
     },
     {
       path: '/order',

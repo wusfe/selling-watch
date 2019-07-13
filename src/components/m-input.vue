@@ -34,24 +34,25 @@
 
     </div>
     <div class="input-container" v-if="type === 'select'">
-      <label class="row-label">
+      <!-- <label class="row-label">
         <span class="require-icon">* </span>&nbsp;
         <span>{{label}}</span>
-      </label>
-      <div class="row-content clear">
-        <div style="width: 100%;">
+      </label> -->
+      <div class="row-content clear" style="padding-left: 0">
+        <!-- <div style="width: 100%;"> -->
+        <div class="row-content__select-list" style="width: 100%;">
           <select v-model="citySelector.province" @change="changeprovince" class="select-a">
             <option value="">选择省份</option>
-            <option :value="v.name" v-for=" v in provice">{{v.name}}</option>
+            <option :key="v.name" :value="v.name" v-for=" v in provice">{{v.name}}</option>
           </select>
 
           <select v-model="citySelector.city" @change="changeCity" class="select-a">
             <option value="">选择城市</option>
-            <option :value="v.name" v-for=" v in city">{{v.name}}</option>
+            <option :key="v.name" :value="v.name" v-for=" v in city">{{v.name}}</option>
           </select>
           <select v-model="citySelector.area" @change="changeArea" class="select-a float-right">
             <option value="">选择地区</option>
-            <option :value="v" v-for=" v in area">{{v}}</option>
+            <option :key="v" :value="v" v-for=" v in area">{{v}}</option>
           </select>
         </div>
 
@@ -260,10 +261,14 @@
         }
       }
 
+      .row-content__select-list{
+        display: flex;
+      }
+
       .select-a {
-        float: left;
+        // float: left;
         background-color: #fff;
-        width: 32%;
+        width: 33%;
         margin-left: 2%;
         height: 56px;
         color: #555555;
@@ -274,6 +279,9 @@
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         font-size: 25px;
         border-radius: 5px;
+         -moz-appearance:none; /* Firefox */
+        -webkit-appearance:none; /* Safari and Chrome */
+        appearance:none;
         /*text-align: center;*/
         &.float-right {
           float: right;
