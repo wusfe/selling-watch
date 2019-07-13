@@ -131,7 +131,7 @@
       </div>
     </div>
     <div class="el_session el_sessionPay">
-      <div class="el-payButton" v-on:click="submit">立即下单</div>
+      <div class="el-payButton" v-on:click="submit">提交订单</div>
     </div>
 
     <div class="el_footer">
