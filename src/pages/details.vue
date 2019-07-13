@@ -150,7 +150,7 @@
       <img src="../assets/images/x2.png" alt="" class="float-right x2">
     </div>
 
-    <a href="#page-top" class="page-top">
+    <a href="#page-top" class="page-top" v-on:click="pageTopClick">
       <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-top%403x.png" alt="">
     </a>
 
@@ -163,7 +163,7 @@
   import {dealTime} from '../utils/tools'
   import {Toast, Indicator} from 'mint-ui'
 
-  const phone_reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/
+  const phone_reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/;
 
   export default {
     data() {
@@ -526,6 +526,9 @@
       orderClick(){
         write({id: 10006})
         return false
+      },
+      pageTopClick(){
+        return false
       }
     }
   }
@@ -541,6 +544,14 @@
     bottom: 160px;
     width: 100px;
     height: 100px;
+    border-radius: 50%;
+
+     background-color: transparent;
+    /* 1 */
+    -webkit-text-decoration-skip: objects;
+
+    -webkit-tap-highlight-color:#fff;
+    /* 2 */
 
     &:active, &:visited, &:hover{
       background-color: #fff;
