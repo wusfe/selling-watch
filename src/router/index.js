@@ -20,16 +20,6 @@ export default new Router({
       name: 'index',
       component: index
     },
-    // {
-    //   path: '/',
-    //   name: 'details',
-    //   component: details
-    // },
-    // {
-    //   path: '/',
-    //   name: 'list',
-    //   component: list
-    // },
     {
       path: '/details/:id',
       name: 'details',

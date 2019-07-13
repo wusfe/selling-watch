@@ -2,7 +2,7 @@
   <div class="details">
     <div class="el_session el_sessionHeader">
       <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
-      <img class="ic_order" src="../assets/img/ic_order.png" v-on:click="orderClick">
+      <img class="ic_order" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_order%403x.png" v-on:click="orderClick">
     </div>
     <div class="el_session el_sessionTitle">
       <div>
@@ -21,13 +21,13 @@
       {{ goods.name}}
     </div>
     <div class="el_session el_sessionTip">
-      <img src="../assets/img/ic_tip.png"/>
+      <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/img_post%403x.png"/>
     </div>
     <div class="el_session">
-      <img src="../assets/img/ic_instructions.png"/>
+      <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/img_process%403x.png"/>
     </div>
     <div class="el_session">
-      <img src="../assets/img/ic_describe.png"/>
+      <img v-bind:src="item.val" v-bind:key="item" v-for="item in goods.desc_items"/>
     </div>
     <div class="el_session" id="goto-order">
       <div class="el_session_header">
@@ -126,7 +126,7 @@
         <span class="el_title">支付方式</span>
       </div>
       <div class="el_right el_pay">
-       <img class="el_icon" src="../assets/img/ic_truck.png"/>
+       <img class="el_icon" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_truck%403x.png"/>
         <div  class="el_iconPay">货到付款</div>
       </div>
     </div>
@@ -137,11 +137,17 @@
     <div class="el_footer">
       <router-link :to="{path:`/`, query:{source:$route.query.source}}">
         <div class="el_home" v-on:click="homeClick">
-          <img src="../assets/img/ic_home.png"/>
+          <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-home%403x.png"/>
         </div>
       </router-link>
       <a class="el_call" href="tel:18948788829" v-on:click="telClick">电话咨询</a>
       <a href="#goto-order" class="el_pay_button" v-on:click="rightOrder">立即下单</a>
+    </div>
+
+    <div class="fadein clear" id="fadein">
+      <img src="../assets/images/x1.png" alt="" class="float-left x1">
+      <span clasa="msg">{{msg}}</span>
+      <img src="../assets/images/x2.png" alt="" class="float-right x2">
     </div>
 
   </div>
@@ -153,11 +159,13 @@
   import {dealTime} from '../utils/tools'
   import {Toast, Indicator} from 'mint-ui'
 
-  const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+  const phone_reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/
 
   export default {
     data() {
       return {
+        msg: '',
+        newest: [],
         goods: {},
         newest: [],
         show_orders: [],
@@ -193,6 +201,7 @@
       this.searchData.source = this.$route.query.source
       this.searchData.goods_id = goods_id
 
+
       if(goods_id){
         details(goods_id).then(res => {
           if(res.respond == 1){
@@ -201,7 +210,11 @@
             this.show_orders = res.data.show_orders
 
             console.log('goods', this.goods)
-
+            if (res.data.newest.length) {
+              this.newest = res.data.newest
+            }
+            // this.moveList(50)
+            this.toastFadein()
             let t = res.data.goods.remaining_sec
             document.title = res.data.goods.name
             this.timer = setInterval(() => {
@@ -226,8 +239,91 @@
       changeSize(size){
         this.searchData.size = (size == this.searchData.size) ? '' : size
       },
-      computeNum(){
-        
+      setMsg() {
+        this.msg = '最新订单来自' + this.newest[0].province + this.newest[0].name + this.newest[0].phone
+        let shift = this.newest[0]
+        this.newest.shift()
+        this.newest.push(shift)
+      },
+      toastFadein() {
+        var that = this
+        var toast = document.getElementById('fadein')
+        if (!toast) {
+          return
+        }
+        toast.style.display = 'block'
+        //todo
+        that.setMsg()
+        // 速度
+        //  1秒内进场
+        let j = 5
+        let jTimer = setInterval(() => {
+        var toast = document.getElementById('fadein')
+          if (!toast) {
+            clearInterval(jTimer)
+            return
+          }
+          let bottomPercent = this.getAttribute(toast, 'bottom') / window.innerHeight
+          if (bottomPercent >= 0.7) {
+            clearInterval(jTimer)
+            //  停留2秒
+            let zl = setTimeout(() => {
+              // this.setMsg()
+              clearTimeout(zl)
+            }, 1000)
+            let jjtime = setTimeout(() => {
+              clearTimeout(jjtime)
+              //  离场1秒
+              let jjjtime = setInterval(() => {
+                var toast = document.getElementById('fadein')
+                if (!toast) {
+                  clearInterval(jjjtime)
+                  return
+                }
+                let b = this.getAttribute(toast, 'bottom') / window.innerHeight
+                if (b >= 0.8) {
+                  clearInterval(jjjtime)
+                  toast.style.bottom = window.innerHeight * 0.5 + 'px'
+                  // toast.style.display = 'none'
+                  toast.style.opacity = 0
+                  // 重复
+                  let mn = setTimeout(() => {
+                    clearTimeout(mn)
+                    this.toastFadein()
+                  }, 1000)
+                } else {
+                  let kl = (b - 0.7) / (0.8 - 0.7)
+                  let opacityPercent = kl >= 1 ? 0 : 0.9 - kl
+                  toast.style.bottom = this.getAttribute(toast, 'bottom') + 4 + 'px'
+                  toast.style.opacity = opacityPercent
+                }
+              }, 20)
+            }, 2000)
+          } else {
+            let opacityPercent = (bottomPercent - 0.5) / (0.7 - 0.5) >= 0.9 ? 0.9 : (bottomPercent - 0.5) / (0.7 - 0.5)
+            toast.style.bottom = this.getAttribute(toast, 'bottom') + j + 'px'
+            toast.style.opacity = opacityPercent
+          }
+        }, 20)
+      },
+      getAttribute(target, attribute) {
+        if (target.currentStyle) {
+          //IE、Opera
+          let k = target.currentStyle[attribute]
+          if (k.indexOf('px') >= 0) {
+            return Number(target.currentStyle[attribute].replace('px', ''))
+          } else {
+            return k
+          }
+        } else {
+          //FF、chrome、safari
+          let k = getComputedStyle(target, false)[attribute]
+          if (k.indexOf('px') >= 0) {
+            return Number(getComputedStyle(target, false)[attribute].replace('px', ''))
+          } else {
+            return k
+          }
+        }
       },
       changeOrderNum(n) {
         this.price = (this.unitPrice * n).toFixed(2)
@@ -432,6 +528,38 @@
   @import "../style/commom.less";
   @import "../style/commom.css";
 
+   .fadein {
+    position: fixed;
+    left: 0;
+    z-index: 9999;
+    bottom: 50%;
+    height: 80px;
+    /*line-height: 80px;*/
+    opacity: 0;
+    display: none;
+
+    img.x1 {
+      width: 44px;
+      border: 0;
+    }
+
+    img.x2 {
+      width: 22px;
+      border: 0;
+    }
+
+    span {
+      float: left;
+      background-color: #282828;
+      color: #fff;
+      font-size: 22px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   .active{
     border: 1px solid #F37435 !important;
   }
@@ -447,9 +575,10 @@
   }
 
   .el_sessionHeader {
-    height: 938px;
-    padding: 0;
+    // height: 938px;
     position: relative;
+    padding: 0;
+    font-size: 0;
     .ic_order {
       position: absolute;
       top: 125px;

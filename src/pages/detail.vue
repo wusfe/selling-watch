@@ -109,7 +109,7 @@
 
 <script>
   import mInput from "@/components/m-input"
-  import {detail, order, write} from '../ajaxApi.js'
+  import {details, order, write} from '../ajaxApi.js'
   import {dealTime} from '../utils/tools'
   import {Toast, Indicator} from 'mint-ui';
 

@@ -1,9 +1,12 @@
 <template>
   <div class="index">
     <mt-swipe :auto="0" class="banner_swipe">
-      <mt-swipe-item class="el_swipe_item">1</mt-swipe-item>
+      <mt-swipe-item class="el_swipe_item" v-bind:key="index" v-for="(item, index) in banner_swipe">
+        <img :src="item" alt="">
+      </mt-swipe-item>
+      <!-- <mt-swipe-item class="el_swipe_item">1</mt-swipe-item>
       <mt-swipe-item class="el_swipe_item">2</mt-swipe-item>
-      <mt-swipe-item class="el_swipe_item">3</mt-swipe-item>
+      <mt-swipe-item class="el_swipe_item">3</mt-swipe-item> -->
     </mt-swipe>
     <mt-swipe :auto="0" class="goods_swipe">
       <mt-swipe-item v-bind:key="index" v-for="(item, index) in best">
@@ -79,10 +82,10 @@
       </div>
     </div>-->
     <div class="el_session">
-      <img src="../assets/img/ic_instructions.png"/>
+      <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/img_purchase%403x.png"/>
     </div>
     <div class="el_session">
-      <img src="../assets/img/ic_explain.png"/>
+      <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/img_process%403x.png"/>
     </div>
     <div class="el_session">
       <div class="el_session_header">
@@ -92,11 +95,11 @@
       </div>
       <div class="el_session_last">
         <div class="el_side">
-          <div><img src="../assets/img/ic_wxCode.png"/></div>
+          <div><img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/img_wechat%403x.png"/></div>
           <div>扫一扫添加微信</div>
         </div>
         <div class="el_side">
-          <div><img src="../assets/img/ic_phone.png"/></div>
+          <div><img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/img_phone%403x.png"/></div>
           <div>18948788829</div>
         </div>
       </div>
@@ -109,6 +112,10 @@
   export default {
     data() {
       return {
+        banner_swipe:[
+          'https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/banner/img_banner_00.png',
+          'https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/banner/img_banner_01.png'
+        ],
         best : [],
         brands: []
       }
@@ -139,26 +146,26 @@
 
   .banner_swipe {
     height: 375px;
-    .el_swipe_item {
-      color: #fff;
-      &:nth-child(1) {
-        background: url("../assets/images/1.png") 0 0 no-repeat;
-        background-size: cover;
-      }
-      &:nth-child(2) {
-        background: url("../assets/images/2.png") 0 0 no-repeat;
-        background-size: cover;
-      }
-      &:nth-child(3) {
-        background: url("../assets/images/3.png") 0 0 no-repeat;
-        background-size: cover;
-      }
-      &:nth-child(4) {
-        background: url("../assets/images/4.png") 0 0 no-repeat;
-        background-size: cover;
-      }
+    // .el_swipe_item {
+    //   color: #fff;
+    //   &:nth-child(1) {
+    //     background: url("../assets/images/1.png") 0 0 no-repeat;
+    //     background-size: cover;
+    //   }
+    //   &:nth-child(2) {
+    //     background: url("../assets/images/2.png") 0 0 no-repeat;
+    //     background-size: cover;
+    //   }
+    //   &:nth-child(3) {
+    //     background: url("../assets/images/3.png") 0 0 no-repeat;
+    //     background-size: cover;
+    //   }
+    //   &:nth-child(4) {
+    //     background: url("../assets/images/4.png") 0 0 no-repeat;
+    //     background-size: cover;
+    //   }
 
-    }
+    // }
   }
 
   .goods_swipe {
