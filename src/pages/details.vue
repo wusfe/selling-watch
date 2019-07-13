@@ -1,5 +1,5 @@
 <template>
-  <div class="details">
+  <div class="details" id="page-top">
     <div class="el_session el_sessionHeader">
       <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
       <img class="ic_order" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_order%403x.png" v-on:click="orderClick">
@@ -149,6 +149,10 @@
       <span clasa="msg">{{msg}}</span>
       <img src="../assets/images/x2.png" alt="" class="float-right x2">
     </div>
+
+    <a href="#page-top" class="page-top">
+      <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-top%403x.png" alt="">
+    </a>
 
   </div>
 </template>
@@ -530,6 +534,18 @@
 <style lang="less" scoped>
   @import "../style/commom.less";
   @import "../style/commom.css";
+
+  .page-top{
+    position: fixed;
+    right: 30px;
+    bottom: 160px;
+    width: 100px;
+    height: 100px;
+
+    &:active, &:visited, &:hover{
+      background-color: #fff;
+    }
+  }
 
   .el-textarea__inner{
     font-size: 24px;
