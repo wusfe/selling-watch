@@ -45,7 +45,7 @@
             <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
               <a :href="'/details/' + item.id">
                 <div class="el_button">
-                  <img src="../assets/img/ic_more.png"/>
+                  查看更多 >>
                 </div>
               </a>
             </router-link>
@@ -146,6 +146,14 @@
 
   .banner_swipe {
     height: 375px;
+    .mint-swipe-item{
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+   
     // .el_swipe_item {
     //   color: #fff;
     //   &:nth-child(1) {
@@ -167,6 +175,24 @@
 
     // }
   }
+  .mint-swipe-indicators{
+    .mint-swipe-indicators {
+      background-color: red;
+    }
+  }
+  //  .mint-swipe-indicators {
+  //    background-color: red;
+  //     // .mint-swipe-indicator {
+  //     //   width: 8px !important;
+  //     //   height: 8px !important;
+  //     //   border-radius: 50% !important;
+  //     //   background-color: #E5E5E5 !important;
+
+  //     //   &.is-active {
+  //     //     background-color: #FED54A;
+  //     //   }
+  //     // }
+  //   }
 
   .goods_swipe {
     height: 240px;
@@ -309,7 +335,10 @@
         }
       }
       .el_button {
+        line-height: 56px;
+        color: #fff;
         text-align: center;
+        background-color: #F37435;
       }
     }
     .el_session_last {

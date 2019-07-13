@@ -268,6 +268,7 @@
       .select-a {
         // float: left;
         background-color: #fff;
+        padding-left: 10px;
         width: 33%;
         margin-left: 2%;
         height: 56px;

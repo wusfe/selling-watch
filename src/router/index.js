@@ -14,6 +14,14 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  //在此处加入
+  scrollBehavior(to,from,savedPosition){
+    if(savedPosition){
+      return savedPosition;
+    }else{
+      return {x:0,y:0}
+    }
+  },
   routes: [
     {
       path: '/',

@@ -46,8 +46,8 @@
       </div>
       <div class="el_session_block">
         <div class="el_block_title">颜色分类</div>
-        <ul>
-          <li v-bind:class="{ 'el_li': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
+        <ul class="color-list">
+          <li v-bind:class="{ 'el_color': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
             <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
             <div class="el_option">{{ item }}</div>
           </li>
@@ -110,7 +110,7 @@
         <span class="el_title">详细地址</span>
       </div>
       <div class="el_right">
-        <textarea class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
+        <input class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
       </div>
     </div>
     <div class="el_session el_sessionOrder">
@@ -118,7 +118,7 @@
         <span class="el_title">留言备注</span>
       </div>
       <div class="el_right">
-        <textarea class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的详细地址"/>
+        <input class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的留言"/>
       </div>
     </div>
     <div class="el_session el_sessionOrder">
@@ -208,6 +208,9 @@
             this.goods = res.data.goods
             this.newest = res.data.newest
             this.show_orders = res.data.show_orders
+
+
+            this.searchData.color = this.goods.color ? this.goods.color[0] : ''
 
             console.log('goods', this.goods)
             if (res.data.newest.length) {
@@ -560,8 +563,42 @@
     }
   }
 
+  .color-list{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .el_color{
+    margin: 6px;
+    display: flex;
+    flex-shrink: 0;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 68px;
+    font-size: 24px;
+    background-color: #ececec;
+
+    img{
+      height: 68px;
+    }
+
+    .el_option{
+      width: 120px;
+    }
+  }
+
+  .el_li{
+    // margin: 0 !important;
+    padding: 0 !important;
+    width: 90px;
+    background-color: #ececec;
+    text-align: center;
+    line-height: 68px;
+  }
   .active{
     border: 1px solid #F37435 !important;
+    background-color: #F37435;
+    color: #fff;
   }
 
   .details {
@@ -702,9 +739,11 @@
       overflow: hidden;
       .el_li {
         padding: 17px 32px;
+        height: 68px;
+        line-height: 68px;
         float: left;
-        display: flex;
-        align-items: center;
+        // display: flex;
+        // align-items: center;
         justify-content: space-between;
         border: 1px solid @borderColor;
         margin: 0 32px 21px 0;
@@ -724,7 +763,7 @@
         .el_optionD {
           font-size: 25px;
           font-weight: 400;
-          line-height: 34px;
+          // line-height: 34px;
         }
       }
       .el_liD {
@@ -768,7 +807,7 @@
 
   .el_sessionOrder {
     display: flex;
-    align-items: center;
+    // align-items: center;
     justify-content: space-between;
     padding: 25px 38px 0 38px;
     .el_left {

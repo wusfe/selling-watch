@@ -136,6 +136,7 @@
 </script>
 
 <style scoped lang="less" type="text/less">
+
   .brandName {
     text-align: center;
     color: #fff;
