@@ -8,6 +8,7 @@ const order = () => import("@/pages/order")
 
 const index = () => import("@/pages/index")
 const details = () => import("@/pages/details")
+const order_search = () =>import("@/pages/order_search")
 
 
 Vue.use(Router)
@@ -37,6 +38,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: order
+    },
+    {
+      path: '/order_search',
+      name: 'order_search',
+      component: order_search
     }
   ]
 })

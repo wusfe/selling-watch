@@ -2,7 +2,11 @@
   <div class="details" id="page-top">
     <div class="el_session el_sessionHeader">
       <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
-      <img class="ic_order" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_order%403x.png" v-on:click="orderClick">
+
+            <router-link :to="{path:`/order_search`, query:{source:$route.query.source}}">
+                  <img class="ic_order" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_order%403x.png" v-on:click="orderClick">
+
+            </router-link>
     </div>
     <div class="el_session el_sessionTitle">
       <div>
@@ -91,7 +95,7 @@
         <div class="el_side">
           <input class="el-input__inner" v-model="searchData.v_code" placeholder="请输入验证码"/>
           <div v-if="count_down == 60" class="el_button" v-on:click="sendCode">获取验证码</div>
-          <div v-if="count_down != 60" class="el_button" > {{count_down }} s</div>
+          <div v-if="count_down != 60" class="el_button" > {{count_down }}后重新获取</div>
         </div>
       </div>
     </div>
@@ -121,14 +125,16 @@
         <input class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的留言"/>
       </div>
     </div>
-    <div class="el_session el_sessionOrder">
+    <div class="el_session el_sessionOrder" style="display:-webkit-flex">
       <div class="el_left">
         <span class="el_title">支付方式</span>
       </div>
-      <div class="el_right el_pay">
+
+      <div style="width:auto" class="el_right el_pay">
        <img class="el_icon" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_truck%403x.png"/>
         <div  class="el_iconPay">货到付款</div>
       </div>
+      <div class="flex-1"></div>
     </div>
     <div class="el_session el_sessionPay">
       <div class="el-payButton" v-on:click="submit">提交订单</div>
@@ -136,8 +142,8 @@
 
     <div class="el_footer">
       <router-link :to="{path:`/`, query:{source:$route.query.source}}">
-        <div class="el_home" v-on:click="homeClick">
-          <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-home%403x.png"/>
+        <div style="border-right: 1px solid #e1e1e1" class="el_home" v-on:click="homeClick">
+          <img style="position:relative;top:5px" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-home%403x.png"/>
         </div>
       </router-link>
       <a class="el_call" href="tel:18948788829" v-on:click="telClick">电话咨询</a>
@@ -340,7 +346,7 @@
       sendCode(){
 
         if(this.count_down_timer) return;
-        
+
         if(this.searchData.tel){
           if(!phone_reg.test(this.searchData.tel)){
             Toast({
@@ -862,15 +868,17 @@
       justify-content: space-between;
       margin:10px 0;
       .el-input__inner {
-        width: 60%;
+        width: 40%;
       }
       .el_button {
         font-size: 27px;
         color: @activeColor;
-        line-height: 39px;
+        line-height: 50px;
         padding:10px 21px;
         margin:10px 5px;
         border: 2px solid @borderColor;
+        width:60%;
+        text-align:center;
       }
     }
     .el_pay{

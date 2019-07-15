@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <mt-swipe :auto="0" class="banner_swipe">
+    <mt-swipe :auto="3000" class="banner_swipe">
       <mt-swipe-item class="el_swipe_item" v-bind:key="index" v-for="(item, index) in banner_swipe">
         <img :src="item" alt="">
       </mt-swipe-item>
@@ -155,7 +155,7 @@
       }
     }
 
-   
+
     // .el_swipe_item {
     //   color: #fff;
     //   &:nth-child(1) {

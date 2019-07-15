@@ -16,3 +16,10 @@ export const write = (data = {}) =>{
     url: window.location.href
   }))
 }
+
+export const search =( data = {}) =>
+{
+  return http.post('api/order/select', Object.assign({}, data, {
+    source: getPar('source'),
+  }))
+}
