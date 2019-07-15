@@ -102,7 +102,7 @@
         </div>
         <div class="el_side">
           <div><img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/img_phone%403x.png"/></div>
-          <div>18948788829</div>
+          <div>13282722159</div>
         </div>
       </div>
     </div>

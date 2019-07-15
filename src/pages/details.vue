@@ -153,7 +153,7 @@
           <img style="position:relative;top:5px" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-home%403x.png"/>
         </div>
       </router-link>
-      <a class="el_call" href="tel:18948788829" v-on:click="telClick">电话咨询</a>
+      <a class="el_call" href="tel:13282722159" v-on:click="telClick">电话咨询</a>
       <a href="#goto-order" class="el_pay_button" v-on:click="rightOrder">立即下单</a>
     </div>
 
@@ -946,7 +946,7 @@
       width: 40%;
     }
     .el_pay_button{
-      width: 40%;
+      width: 70%;
       color:@witheColor;
       background:linear-gradient(270deg,rgba(243,116,53,1) 0%,rgba(252,187,49,1) 100%);
     }

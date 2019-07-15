@@ -16,7 +16,7 @@
            <input v-model="searchTel" type="text" placeholder="请输入">
            </div>
       </div>
-      <div class="search-btn"  v-on:click="searchOrder"> 查询</div>
+      <div class="search-btn"  v-on:click="searchOrder"> 查 询</div>
 
 
       <div v-if="order.length>0 && order[0]!=''" class="flex ord-title">
@@ -145,7 +145,7 @@ input{
     line-height:56px;
 }
 .input-txt input {
-   width:100%;
+   width:98.5%;
    display:block;
    color: #333333;
    line-height:56px;
@@ -159,7 +159,7 @@ input{
     line-height:72px;
     color:#FFFFFF;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 48px;
 }
 
 .ord-title{
@@ -168,13 +168,16 @@ input{
    margin: 50px 0;
 }
 .ord-title  .txt{
-padding: 0 10px;
-line-height:50px;
-height:50px;
-
+  padding: 0 10px;
+/*line-height:50px;*/
+/*height:50px;*/
+  font-size: 33px;
+  font-weight: 500;
+  line-height: 33px;
 }
 .line{
    height: 2px;
+   border: 2px;
    background: #333;
 }
 
@@ -182,6 +185,7 @@ height:50px;
    border: 1px solid #979797;
    font-size: 26px;
    color:#555;
+   margin-top:3px;
 }
 .one-list{
    margin: 30px 15px;
