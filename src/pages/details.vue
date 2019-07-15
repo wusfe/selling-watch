@@ -31,6 +31,12 @@
       <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/img_process%403x.png"/>
     </div>
     <div class="el_session">
+      <div class="el_session_header">
+        <div class="el_session_left"></div>
+        <div class="el_session_center">商品描述</div>
+        <div class="el_session_right"></div>
+      </div>
+    <div class="el_session">
       <img v-bind:src="item.val" v-bind:key="item" v-for="item in goods.desc_items"/>
     </div>
     <div class="el_session" id="goto-order">
