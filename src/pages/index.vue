@@ -8,6 +8,7 @@
       <mt-swipe-item class="el_swipe_item">2</mt-swipe-item>
       <mt-swipe-item class="el_swipe_item">3</mt-swipe-item> -->
     </mt-swipe>
+    <!--
     <mt-swipe :auto="0" class="goods_swipe" style="background:#fff">
       <mt-swipe-item v-bind:key="index" v-for="(item, index) in best">
         <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
@@ -24,7 +25,8 @@
         </router-link>
       </mt-swipe-item>
     </mt-swipe>
-
+    -->
+    
     <div class="el_session" v-bind:key="idx" v-for="(brand, idx) in brands">
       <div class="el_session_header">
         <div class="el_session_left"></div>
