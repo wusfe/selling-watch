@@ -43,109 +43,111 @@
     <div class="el_session" id="goto-order">
       <div class="el_session_header">
         <div class="el_session_left"></div>
-        <div class="el_session_center">立即下单</div>
+        <div class="el_session_center">订单详情</div>
         <div class="el_session_right"></div>
       </div>
-      <div class="el_session_content">
-        <div class="el_content_side">
-        <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
-        </div>
-        <div class="el_content_side el_content_sideR">
-          <div class="el_price">￥{{ goods.price }}</div>
-          <div class="el_priceTxt">选择颜色分类；尺码</div>
-        </div>
-      </div>
-      <div class="el_session_block">
-        <div class="el_block_title">颜色分类</div>
-        <ul class="color-list">
-          <li v-bind:class="{ 'el_color': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
+      <div id="order-details" style="border: 1px solid #e1e1e1">
+        <div class="el_session_content">
+          <div class="el_content_side">
             <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
-            <div class="el_option">{{ item }}</div>
-          </li>
-        </ul>
-      </div>
-      <div class="el_session_block">
-        <div class="el_block_title">尺码</div>
-        <ul>
-          <li v-bind:class="{ 'el_li el_liD': true, active: (item == searchData.size) }" v-bind:key="item" v-for="item in goods.size" v-on:click="changeSize(item)">
-            <div class="el_optionD">{{ item }}</div>
-          </li>
-        </ul>
-      </div>
-      <div class="el_session_side">
-        <div class="el_block_left">购买数量</div>
-        <m-input  type="number" @changeOrderNum="changeOrderNum"></m-input>
-        <!--<div class="el_block_right">
-          <img class="el_num" src="../assets/img/ic_reduce.png"/>
-          <div class="el_numC">{{ searchData.buy_num }}</div>
-          <img class="el_num" src="../assets/img/ic_plus.png"/>
-        </div>-->
-      </div>
-    </div>
+          </div>
+          <div class="el_content_side el_content_sideR">
+            <div class="el_price">￥{{ goods.price }}</div>
+            <div class="el_priceTxt">{{ goods.name}}</div>
+          </div>
+        </div>
+        <div class="el_session_block">
+          <div class="el_block_title">颜色分类</div>
+          <ul class="color-list">
+            <li v-bind:class="{ 'el_color': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
+              <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
+              <div class="el_option">{{ item }}</div>
+            </li>
+          </ul>
+        </div>
+        <div class="el_session_block">
+          <div class="el_block_title">尺码</div>
+          <ul>
+            <li v-bind:class="{ 'el_li el_liD': true, active: (item == searchData.size) }" v-bind:key="item" v-for="item in goods.size" v-on:click="changeSize(item)">
+              <div class="el_optionD">{{ item }}</div>
+            </li>
+          </ul>
+        </div>
+        <div class="el_session_side">
+          <div class="el_block_left">购买数量</div>
+          <m-input  type="number" @changeOrderNum="changeOrderNum"></m-input>
+          <!--<div class="el_block_right">
+            <img class="el_num" src="../assets/img/ic_reduce.png"/>
+            <div class="el_numC">{{ searchData.buy_num }}</div>
+            <img class="el_num" src="../assets/img/ic_plus.png"/>
+          </div>-->
+        </div>
+        <div class="el_session el_sessionOrder">
+          <div class="el_left">
+            <span class="el_title">您的姓名</span>
+            <span class="el_require">*</span>
+          </div>
+          <div class="el_right">
+            <input class="el-input__inner" v-model="searchData.receiver" placeholder="请输入您的姓名"/>
+          </div>
+        </div>
+        <div class="el_session el_sessionOrder">
+          <div class="el_left">
+            <span class="el_title">手机号码</span>
+            <span class="el_require">*</span>
+          </div>
+          <div class="el_right">
+            <input class="el-input__inner"  v-model="searchData.tel" placeholder="请输入您的手机号码"/>
+            <div class="el_side">
+              <input class="el-input__inner" v-model="searchData.v_code" placeholder="请输入验证码"/>
+              <div v-if="count_down == 60" class="el_button" v-on:click="sendCode">获取验证码</div>
+              <div v-if="count_down != 60" class="el_button" > {{count_down }}后重新获取</div>
+            </div>
+          </div>
+        </div>
+        <div class="el_session el_sessionOrder">
+          <div class="el_left">
+            <span class="el_title">选择地区</span>
+            <span class="el_require">*</span>
+          </div>
+          <div class="el_right">
+            <m-input type="select" @changeArea="changeArea"></m-input>
+          </div>
+        </div>
+        <div class="el_session el_sessionOrder">
+          <div class="el_left">
+            <span class="el_title">详细地址</span>
+            <span class="el_require">*</span>
+          </div>
+          <div class="el_right">
+            <input class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
+          </div>
+        </div>
+        <div class="el_session el_sessionOrder">
+          <div class="el_left">
+            <span class="el_title">留言备注</span>
+          </div>
+          <div class="el_right">
+            <input class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的留言"/>
+          </div>
+        </div>
+        <div class="el_session el_sessionOrder" style="display:-webkit-flex">
+          <div class="el_left">
+            <span class="el_title">支付方式</span>
+          </div>
 
-    <div class="el_session el_sessionOrder">
-      <div class="el_left">
-        <span class="el_title">您的姓名</span>
-        <span class="el_require">*</span>
-      </div>
-      <div class="el_right">
-        <input class="el-input__inner" v-model="searchData.receiver" placeholder="请输入您的姓名"/>
-      </div>
-    </div>
-    <div class="el_session el_sessionOrder">
-      <div class="el_left">
-        <span class="el_title">手机号码</span>
-        <span class="el_require">*</span>
-      </div>
-      <div class="el_right">
-        <input class="el-input__inner"  v-model="searchData.tel" placeholder="请输入您的手机号码"/>
-        <div class="el_side">
-          <input class="el-input__inner" v-model="searchData.v_code" placeholder="请输入验证码"/>
-          <div v-if="count_down == 60" class="el_button" v-on:click="sendCode">获取验证码</div>
-          <div v-if="count_down != 60" class="el_button" > {{count_down }}后重新获取</div>
+          <div style="width:auto" class="el_right el_pay">
+            <img class="el_icon" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_truck%403x.png"/>
+            <div  class="el_iconPay">货到付款</div>
+          </div>
+          <div class="flex-1"></div>
+        </div>
+        <div class="el_session el_sessionPay">
+          <div class="el-payButton" v-on:click="submit">提交订单</div>
         </div>
       </div>
     </div>
-    <div class="el_session el_sessionOrder">
-      <div class="el_left">
-        <span class="el_title">选择地区</span>
-        <span class="el_require">*</span>
-      </div>
-      <div class="el_right">
-        <m-input type="select" @changeArea="changeArea"></m-input>
-      </div>
-    </div>
-    <div class="el_session el_sessionOrder">
-      <div class="el_left">
-        <span class="el_title">详细地址</span>
-        <span class="el_require">*</span>
-      </div>
-      <div class="el_right">
-        <input class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
-      </div>
-    </div>
-    <div class="el_session el_sessionOrder">
-      <div class="el_left">
-        <span class="el_title">留言备注</span>
-      </div>
-      <div class="el_right">
-        <input class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的留言"/>
-      </div>
-    </div>
-    <div class="el_session el_sessionOrder" style="display:-webkit-flex">
-      <div class="el_left">
-        <span class="el_title">支付方式</span>
-      </div>
 
-      <div style="width:auto" class="el_right el_pay">
-       <img class="el_icon" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_truck%403x.png"/>
-        <div  class="el_iconPay">货到付款</div>
-      </div>
-      <div class="flex-1"></div>
-    </div>
-    <div class="el_session el_sessionPay">
-      <div class="el-payButton" v-on:click="submit">提交订单</div>
-    </div>
 
     <div class="el_footer">
       <router-link :to="{path:`/`, query:{source:$route.query.source}}">
@@ -745,6 +747,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 5px 20px;
     .el_content_side {
       width: 50%;
       text-align: center;
@@ -772,6 +775,7 @@
   }
 
   .el_session_block {
+    margin: 5px 20px;
     padding: 23px 0;
     border-bottom: 1px solid @borderBottomColor;
     .el_block_title {
@@ -818,6 +822,7 @@
   }
 
   .el_session_side {
+    margin: 5px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
