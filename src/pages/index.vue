@@ -2,7 +2,9 @@
   <div class="index">
     <mt-swipe :auto="3000" class="banner_swipe">
       <mt-swipe-item class="el_swipe_item" v-bind:key="index" v-for="(item, index) in banner_swipe">
-        <img :src="item" alt="">
+        <a :href="item.link">
+          <img :src="item.img"  alt="">
+        </a>
       </mt-swipe-item>
       <!-- <mt-swipe-item class="el_swipe_item">1</mt-swipe-item>
       <mt-swipe-item class="el_swipe_item">2</mt-swipe-item>
@@ -26,7 +28,7 @@
       </mt-swipe-item>
     </mt-swipe>
     -->
-    
+
     <div class="el_session" v-bind:key="idx" v-for="(brand, idx) in brands">
       <div class="el_session_header">
         <div class="el_session_left"></div>
@@ -34,26 +36,39 @@
         <div class="el_session_right"></div>
       </div>
       <div class="el_session_content" v-bind:key="item.id" v-for="item in brand.list">
-        <div class="el_block">
-          <img :src="item.cover"/>
-        </div>
-        <div class="el_blocks">
-          <div class="el_bocks_in">
-            <div class="el_blocks_name">
-              {{ item.name }}
+        <div :id="'list_' + brand.name + '_' + item.id">
+          <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
+            <div class="el_block">
+              <img :src="item.cover"/>
             </div>
-            <div class="el_price">
-              <span class="el_price_n">¥ {{ item.price }}  </span>
-              <span class="el_price_o">¥ {{ item.original_price }}</span>
-            </div>
-            <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
-              <a :href="'/details/' + item.id">
-                <div class="el_button">
-                  查看更多 >>
+          </router-link>
+          <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
+            <div class="el_blocks">
+              <div class="el_bocks_in">
+                <div class="el_blocks_name">
+                  {{ item.name }}
                 </div>
-              </a>
-            </router-link>
-          </div>
+                <div class="el_price">
+                  <span class="el_price_n">¥ {{ item.price }}  </span>
+                  <span class="el_price_o">¥ {{ item.original_price }}</span>
+                </div>
+                <!--
+                <router-link :to="{path:`/details/${item.id}`, query:{source:$route.query.source}}">
+                  <a :href="'/details/' + item.id">
+                    <div class="el_button">
+                      查看更多 >>
+                    </div>
+                  </a>
+                </router-link>
+                -->
+                <a :href="'/details/' + item.id">
+                  <div class="el_button">
+                    查看更多 >>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -117,8 +132,14 @@
     data() {
       return {
         banner_swipe:[
-          'https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/banner/img_banner_00.png',
-          'https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/banner/img_banner_01.png'
+          {
+            img: 'https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/banner/img_banner_00.png',
+            link: '#list_ADIDAS_8'
+          },
+          {
+            img: 'https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/list/banner/img_banner_01.png',
+            link: '#list_NIKE_11'
+          },
         ],
         best : [],
         brands: []
