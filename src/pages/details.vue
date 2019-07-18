@@ -412,8 +412,8 @@
         this.searchData.area = n[2]
       },
       submit() {
-        // const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
-        const phone_reg = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
+        const phone_reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/;
+        // const phone_reg = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
 
         write({id: 10007, goods_id: this.searchData.goods_id, params: this.searchData})
         if (!this.searchData.receiver) {
