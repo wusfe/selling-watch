@@ -41,114 +41,116 @@
       <img v-bind:src="item.val" v-bind:key="item" v-for="item in goods.desc_items"/>
     </div>
     <div class="el_session" id="goto-order">
-      <div class="el_session_header">
-        <div class="el_session_left"></div>
-        <div class="el_session_center">订单详情</div>
-        <div class="el_session_right"></div>
-      </div>
-      <div id="order-details" style="border: 1px solid #e1e1e1">
-        <div class="el_session_content">
-          <div class="el_content_side">
-            <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
-          </div>
-          <div class="el_content_side el_content_sideR">
-            <div class="el_price">￥{{ goods.price }}</div>
-            <div class="el_priceTxt">{{ goods.name}}</div>
-          </div>
+        <div class="el_session_header">
+          <div class="el_session_left"></div>
+          <div class="el_session_center">订单详情</div>
+          <div class="el_session_right"></div>
         </div>
-        <div class="el_session_block">
-          <div class="el_block_title">颜色分类</div>
-          <ul class="color-list">
-            <li v-bind:class="{ 'el_color': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
+        <div id="order-details" style="border: 1px solid #e1e1e1">
+          <div class="el_session_content">
+            <div class="el_content_side">
               <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
-              <div class="el_option">{{ item }}</div>
-            </li>
-          </ul>
-        </div>
-        <div class="el_session_block">
-          <div class="el_block_title">尺码</div>
-          <ul>
-            <li v-bind:class="{ 'el_li el_liD': true, active: (item == searchData.size) }" v-bind:key="item" v-for="item in goods.size" v-on:click="changeSize(item)">
-              <div class="el_optionD">{{ item }}</div>
-            </li>
-          </ul>
-        </div>
-        <div class="el_session_side">
-          <div class="el_block_left">购买数量</div>
-          <m-input  type="number" @changeOrderNum="changeOrderNum"></m-input>
-          <!--<div class="el_block_right">
-            <img class="el_num" src="../assets/img/ic_reduce.png"/>
-            <div class="el_numC">{{ searchData.buy_num }}</div>
-            <img class="el_num" src="../assets/img/ic_plus.png"/>
-          </div>-->
-        </div>
-        <div class="el_session el_sessionOrder">
-          <div class="el_left">
-            <span class="el_title">您的姓名</span>
-            <span class="el_require">*</span>
-          </div>
-          <div class="el_right">
-            <input class="el-input__inner" v-model="searchData.receiver" placeholder="请输入您的姓名"/>
-          </div>
-        </div>
-        <div class="el_session el_sessionOrder">
-          <div class="el_left">
-            <span class="el_title">手机号码</span>
-            <span class="el_require">*</span>
-          </div>
-          <div class="el_right">
-            <input class="el-input__inner"  v-model="searchData.tel" placeholder="请输入您的手机号码"/>
-            <div class="el_side">
-              <input class="el-input__inner" v-model="searchData.v_code" placeholder="请输入验证码"/>
-              <div v-if="count_down == 60" class="el_button" v-on:click="sendCode">获取验证码</div>
-              <div v-if="count_down != 60" class="el_button" > {{count_down }}后重新获取</div>
+            </div>
+            <div class="el_content_side el_content_sideR">
+              <div class="el_price">￥{{ goods.price }}</div>
+              <div class="el_priceTxt">{{ goods.name}}</div>
             </div>
           </div>
-        </div>
-        <div class="el_session el_sessionOrder">
-          <div class="el_left">
-            <span class="el_title">选择地区</span>
-            <span class="el_require">*</span>
+          <div class="el_session_block">
+            <div class="el_block_title">颜色分类</div>
+            <ul class="color-list">
+              <li v-bind:class="{ 'el_color': true, active: (item == searchData.color) }" v-bind:key="item" v-for="item in goods.color" v-on:click="changeColor(item)">
+                <img v-bind:src="item" v-bind:key="item" v-for="item in goods.cover_imgs"/>
+                <div class="el_option">{{ item }}</div>
+              </li>
+            </ul>
           </div>
-          <div class="el_right">
-            <m-input type="select" @changeArea="changeArea"></m-input>
+          <div class="el_session_block">
+            <div class="el_block_title">尺码</div>
+            <ul>
+              <li v-bind:class="{ 'el_li el_liD': true, active: (item == searchData.size) }" v-bind:key="item" v-for="item in goods.size" v-on:click="changeSize(item)">
+                <div class="el_optionD">{{ item }}</div>
+              </li>
+            </ul>
           </div>
-        </div>
-        <div class="el_session el_sessionOrder">
-          <div class="el_left">
-            <span class="el_title">详细地址</span>
-            <span class="el_require">*</span>
+          <div class="el_session_block flex">
+            <div style="font-size:15px;line-height:40px;">购买数量</div>
+            <div class="flex flex-pack-center flex-1">
+                    <m-input  class=" hide-label" type="number" @changeOrderNum="changeOrderNum"></m-input>
+            </div>
+            <div style="font-size:12px;line-height:40px;">应付价格<span style="color:#ff7400"> ￥{{price?price:'--'}}</span></div>
+              <!--<div class="el_block_right">
+                <img class="el_num" src="../assets/img/ic_reduce.png"/>
+                <div class="el_numC">{{ searchData.buy_num }}</div>
+                <img class="el_num" src="../assets/img/ic_plus.png"/>
+              </div>-->
           </div>
-          <div class="el_right">
-            <input class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
+          <div class="el_session el_sessionOrder">
+            <div class="el_left">
+              <span class="el_title">您的姓名</span>
+              <span class="el_require">*</span>
+            </div>
+            <div class="el_right">
+              <input class="el-input__inner" v-model="searchData.receiver" placeholder="请输入您的姓名"/>
+            </div>
           </div>
-        </div>
-        <div class="el_session el_sessionOrder">
-          <div class="el_left">
-            <span class="el_title">留言备注</span>
+          <div class="el_session el_sessionOrder">
+            <div class="el_left">
+              <span class="el_title">手机号码</span>
+              <span class="el_require">*</span>
+            </div>
+            <div class="el_right">
+              <input class="el-input__inner"  v-model="searchData.tel" placeholder="请输入您的手机号码"/>
+              <div class="el_side">
+                <input class="el-input__inner" v-model="searchData.v_code" placeholder="请输入验证码"/>
+                <div v-if="count_down == 60" class="el_button" v-on:click="sendCode">获取验证码</div>
+                <div v-if="count_down != 60" class="el_button" > {{count_down }}后重新获取</div>
+              </div>
+            </div>
           </div>
-          <div class="el_right">
-            <input class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的留言"/>
+          <div class="el_session el_sessionOrder">
+            <div class="el_left">
+              <span class="el_title">选择地区</span>
+              <span class="el_require">*</span>
+            </div>
+            <div class="el_right">
+              <m-input type="select" @changeArea="changeArea"></m-input>
+            </div>
           </div>
-        </div>
-        <div class="el_session el_sessionOrder" style="display:-webkit-flex">
-          <div class="el_left">
-            <span class="el_title">支付方式</span>
+          <div class="el_session el_sessionOrder">
+            <div class="el_left">
+              <span class="el_title">详细地址</span>
+              <span class="el_require">*</span>
+            </div>
+            <div class="el_right">
+              <input class="el-textarea__inner" v-model="searchData.addr" placeholder="请输入您的详细地址"/>
+            </div>
           </div>
+          <div class="el_session el_sessionOrder">
+            <div class="el_left">
+              <span class="el_title">留言备注</span>
+            </div>
+            <div class="el_right">
+              <input class="el-textarea__inner" v-model="searchData.remark" placeholder="请输入您的留言"/>
+            </div>
+          </div>
+          <div class="el_session el_sessionOrder" style="display:-webkit-flex">
+            <div class="el_left">
+              <span class="el_title">支付方式</span>
+            </div>
 
-          <div style="width:auto" class="el_right el_pay">
-            <img class="el_icon" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_truck%403x.png"/>
-            <div  class="el_iconPay">货到付款</div>
+            <div style="width:auto" class="el_right el_pay">
+              <img class="el_icon" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic_truck%403x.png"/>
+              <div  class="el_iconPay">货到付款</div>
+            </div>
+            <div class="flex-1"></div>
           </div>
-          <div class="flex-1"></div>
-        </div>
-        <div class="el_session el_sessionPay">
-          <div class="el-payButton" v-on:click="submit">提交订单</div>
+          <div class="el_session el_sessionPay">
+            <div class="el-payButton" v-on:click="submit">提交订单</div>
+          </div>
         </div>
       </div>
-    </div>
-
-
+    <div v-if="showBottom">
     <div class="el_footer">
       <router-link :to="{path:`/`, query:{source:$route.query.source}}">
         <div style="border-right: 1px solid #e1e1e1" class="el_home" v-on:click="homeClick">
@@ -168,7 +170,7 @@
     <a href="#page-top" class="page-top" v-on:click="pageTopClick">
       <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-top%403x.png" alt="">
     </a>
-
+  </div>
   </div>
 </template>
 
@@ -183,6 +185,7 @@
   export default {
     data() {
       return {
+      showBottom: true,
         msg: '',
         newest: [],
         goods: {},
@@ -211,7 +214,10 @@
     components: {
       mInput
     },
-    computed: {},
+    computed:{
+
+
+    },
     watch: {},
     created() {
     },
@@ -239,6 +245,7 @@
             this.toastFadein()
             let t = res.data.goods.remaining_sec
             document.title = res.data.goods.name
+            this.price = (this.goods.price * this.searchData.buy_num).toFixed(2)
             this.timer = setInterval(() => {
               if (t === 0) {
                 clearInterval(s)
@@ -253,13 +260,29 @@
         })
       }
       write({id: 10002, goods_id})
+      var _t = this;
+       window.addEventListener('scroll', function() {
+          if(Number(document.getElementById('goto-order').offsetTop)  < Number(document.documentElement.scrollTop)){
+         _t.showBottom = false
+          } else {
+           _t.showBottom = true
+          }
+
+          })
     },
     methods: {
+    changeNum(){
+    alert(3)
+    },
       changeColor(color){
         this.searchData.color = (color == this.searchData.color) ? '' : color
       },
       changeSize(size){
-        this.searchData.size = (size == this.searchData.size) ? '' : size
+      var _this = this;
+
+        this.searchData.size = (size == this.searchData.size) ? '' : size;
+          _this.price = (_this.goods.price * Number(document.getElementById('inputVal').value)).toFixed(2);
+
       },
       setMsg() {
         this.msg = '最新订单来自' + this.newest[0].province + this.newest[0].name + this.newest[0].phone
@@ -268,6 +291,7 @@
         this.newest.push(shift)
       },
       toastFadein() {
+
         var that = this
         var toast = document.getElementById('fadein')
         if (!toast) {
@@ -348,7 +372,7 @@
         }
       },
       changeOrderNum(n) {
-        this.price = (this.unitPrice * n).toFixed(2)
+        this.price = (this.goods.price * n).toFixed(2)
         //todo 购买数量
         this.searchData.buy_num = n
       },
@@ -955,6 +979,6 @@
       color:@witheColor;
       background:linear-gradient(270deg,rgba(243,116,53,1) 0%,rgba(252,187,49,1) 100%);
     }
-  }
 
+  }
 </style>

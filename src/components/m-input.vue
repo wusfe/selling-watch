@@ -27,7 +27,7 @@
       <div class="row-content">
         <div class="row-num clear">
           <a href="javascript:void(0);" @click="reduce">-</a>
-          <input type="number" min=1 max=3 @input="dealNumber" v-model="n">
+          <input id="inputVal" type="number" min=1 max=3 @input="dealNumber" v-model="n">
           <a href="javascript:void(0);" @click="plus">+</a>
         </div>
       </div>
@@ -161,11 +161,13 @@
       },
       reduce() {
         this.n = Number(this.n) - 1
-        this.dealNumber()
+        this.dealNumber();
+
       },
       plus() {
         this.n = Number(this.n) + 1
         this.dealNumber()
+
       },
       dealNumber() {
         if (!this.n) {
