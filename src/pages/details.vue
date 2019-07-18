@@ -151,26 +151,24 @@
         </div>
       </div>
     <div v-if="showBottom">
-    <div class="el_footer">
-      <router-link :to="{path:`/`, query:{source:$route.query.source}}">
-        <div style="border-right: 1px solid #e1e1e1" class="el_home" v-on:click="homeClick">
-          <img style="position:relative;top:5px" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-home%403x.png"/>
-        </div>
-      </router-link>
-      <a class="el_call" href="tel:13282722159" v-on:click="telClick">电话咨询</a>
-      <a href="#goto-order" class="el_pay_button" v-on:click="rightOrder">立即下单</a>
+      <div class="el_footer">
+        <router-link :to="{path:`/`, query:{source:$route.query.source}}">
+          <div style="border-right: 1px solid #e1e1e1" class="el_home" v-on:click="homeClick">
+            <img style="position:relative;top:5px" src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-home%403x.png"/>
+          </div>
+        </router-link>
+        <a class="el_call" href="tel:13282722159" v-on:click="telClick">电话咨询</a>
+        <a href="#goto-order" class="el_pay_button" v-on:click="rightOrder">立即下单</a>
+      </div>
+      <div class="fadein clear" id="fadein">
+        <img src="../assets/images/x1.png" alt="" class="float-left x1">
+        <span clasa="msg">{{msg}}</span>
+        <img src="../assets/images/x2.png" alt="" class="float-right x2">
+      </div>
+      <a href="#page-top" class="page-top" v-on:click="pageTopClick">
+        <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-top%403x.png" alt="">
+      </a>
     </div>
-
-    <div class="fadein clear" id="fadein">
-      <img src="../assets/images/x1.png" alt="" class="float-left x1">
-      <span clasa="msg">{{msg}}</span>
-      <img src="../assets/images/x2.png" alt="" class="float-right x2">
-    </div>
-
-    <a href="#page-top" class="page-top" v-on:click="pageTopClick">
-      <img src="https://jzy-ebuy.oss-cn-shenzhen.aliyuncs.com/v2/detail/ic-top%403x.png" alt="">
-    </a>
-  </div>
   </div>
 </template>
 
@@ -261,19 +259,19 @@
       }
       write({id: 10002, goods_id})
       var _t = this;
-       window.addEventListener('scroll', function() {
-          if(Number(document.getElementById('goto-order').offsetTop)  < Number(document.documentElement.scrollTop)){
-         _t.showBottom = false
+      window.addEventListener('scroll', function() {
+          if(Number(document.getElementById('order-details').offsetTop)  < Number(document.documentElement.scrollTop)){
+            _t.showBottom = false
           } else {
-           _t.showBottom = true
+            _t.showBottom = true
           }
 
-          })
+       })
     },
     methods: {
-    changeNum(){
-    alert(3)
-    },
+      changeNum(){
+        alert(3)
+      },
       changeColor(color){
         this.searchData.color = (color == this.searchData.color) ? '' : color
       },
@@ -414,7 +412,8 @@
         this.searchData.area = n[2]
       },
       submit() {
-        const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+        // const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+        const phone_reg = /^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/;
 
         write({id: 10007, goods_id: this.searchData.goods_id, params: this.searchData})
         if (!this.searchData.receiver) {
